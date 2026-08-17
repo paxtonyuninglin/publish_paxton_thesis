@@ -1,0 +1,59 @@
+Project ID,Site,Station id,Camera,SD-Card,"Camera 
+Deployment 
+Begin Date","Camera 
+Deployment 
+End Date","Camera 
+Deployment 
+End Time",Latitude,Longitude,Elevation (m),Slope,Aspect,Feature.Type,"Distance to 
+feature (m)",Height (cm),"Camera 
+Direction","Camera 
+Deployment 
+Begin Time",Photos per burst,Quiet.Period.Setting,Camera.Make,Time.Zone,Additional comments
+Bobcat Range Shifts,Tenquille Lake,TL1,38,10,17/06/2025,,,50.52989,123.06155,485,15,165,Game trail,2,65,149,9:26,3,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL2,49,21,17/06/2025,,,50.50299,122.96687,271,15,235,Game trail,3,100,60,14:52,3,1s,Reconyx,UTC-07:00,Saw bear
+Bobcat Range Shifts,Tenquille Lake,TL3,58,36,18/06/2025,,,50.5452,123.02609,943,,51,Game trail,2,20.5,329,8:28,3,1s,Reconyx,UTC-07:00,Screen damaged
+Bobcat Range Shifts,Tenquille Lake,TL4,45,17,18/06/2025,,,50.5412,123.02657,899,,39,Game trail,2,,90,9:17,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL5,39,11,18/06/2025,,,50.54189,123.00644,1177,,219,Game trail,2,,118,10:24,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL6,32,4,18/06/2025,,,50.52036,122.99901,1312,,225,Game trail,3,81.5,105,,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL7,55,27,18/06/2025,,,50.53812,122.99211,1407,23,165,Game trail,3,21.5,100,18:04,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL8,37,9,19/06/2025,,,50.5356,122.9852,1470,4,180,Game trail,3,66,115,8:40,1,1s,Reconyx,UTC-07:00,Above the trail
+Bobcat Range Shifts,Tenquille Lake,TL9,46,18,19/06/2025,,,50.53535,122.95052,1614,,174,Game trail,3,54,233,11:16,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL10,48,20,19/06/2025,,,50.53519,122.95032,1618,15,165,Game trail,3,52,270,12:05,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL11,57,29,19/06/2025,,,50.53508,122.94277,1703,20,322,Game trail,3,49,158,,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL12,42,14,19/06/2025,,,50.53459,122.93623,1772,22,10,Game trail,3,70,135,15:15,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL13,31,3,19/06/2025,,,50.53899,122.9355,1730,14,178,Game trail,3.5,55,56,16:05,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL14,,12,19/06/2025,,,50.53878,122.92867,1684,12,200,Game trail,2,63,217,,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL15,44,16,20/06/2025,,,50.5473,123.01413,1215,16,133,Other: previous access road,2.5,54,50,15:39,1,1s,Reconyx,UTC-07:00,On previous access road
+Bobcat Range Shifts,Tenquille Lake,TL16,,5,20/06/2025,,,50.53209,123.02028,1180,2,93,Human trail,2,70,335,16:50,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Tenquille Lake,TL17,50,22,30/06/2025,,,50.5455,123.04462,901,6,201,Human trail,2,58.5,210,14:51,1,1s,Reconyx,UTC-07:00,"Overgrown, old service road, clearcut, bushwack"
+Bobcat Range Shifts,Tenquille Lake,TL18,56,28,30/06/2025,,,50.53835,123.01288,1027,7,228,Game trail,3,63.5,284,16:16,1,1s,Reconyx,UTC-07:00,SD slot potentially finicky
+Bobcat Range Shifts,Tenquille Lake,TL19,30,2,30/06/2025,,,50.55626,123.0255,941,7,154,Game trail,4,32,102,17:43,1,1s,Reconyx,UTC-07:00,Near an unofficial campsite pulloff
+Bobcat Range Shifts,Tenquille Lake,TL20,54,26,01/07/2025,,,50.50136,122.95615,543,22,171,Game trail,3,60.5,7,11:50,1,1s,Reconyx,UTC-07:00,"Burn site, deer scat"
+Bobcat Range Shifts,Tenquille Lake,TL21,47,19,01/07/2025,,,50.5001,122.94985,581,10,136,Game trail,1.5,41.5,162,12:45,1,1s,Reconyx,UTC-07:00,Big ahh Douglas Fir
+Bobcat Range Shifts,Tenquille Lake,TL22,52,24,01/07/2025,,,50.548,123.08698,555,17,90,Game trail,3,59.5,48,14:57,1,1s,Reconyx,UTC-07:00,"Lots of unknown scat piles, Kwasi has pic"
+Bobcat Range Shifts,Tenquille Lake,TL23,29,1,01/07/2025,,,50.54365,123.07614,485,9,124,Game trail,2.5,46,286,16:05,1,1s,Reconyx,UTC-07:00,Humongous Douglas Fir
+Bobcat Range Shifts,Alex Fraser,AF1,16,46,15/07/2025,,,52.45289,121.72491,1250,7,21,Game trail,2.5,44,28,8:48,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF2,23,53,15/07/2025,,,52.45704,121.72822,1199,17,115,Game trail,3,54.5,38,10:08,1,1s,Reconyx,UTC-07:00,"Near wetland depression. Moose bed nearby. Site burned, no live canopy"
+Bobcat Range Shifts,Alex Fraser,AF3,12,42,15/07/2025,,,52.46258,121.71302,1096,8,42,Cow trail,3,75,84,11:50,1,1s,Reconyx,UTC-07:00,"On snag, cow trail"
+Bobcat Range Shifts,Alex Fraser,AF4,11,41,05/08/2025,,,52.44003,121.7305,957,4,160,Other: Cleaaring - no game trail within 50m of point,2.5,64,246,8:00,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF5,13,43,05/08/2025,,,52.48251,121.7541,1104,8,124,Game trail,3,59,62,9:29,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF6,5,35,05/08/2025,,,52.47631,121.75311,1160,13,230,Game trail,3,67,88,10:29,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF7,8,48,05/08/2025,,,52.46332,121.74892,1040,5,54,Game trail,3.5,62,38,11:40,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF8,33,6,05/08/2025,,,52.45163,121.76891,927,5,328,Game trail,2,71,26,13:00,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF9,21,51,05/08/2025,,,52.46286,121.77368,910,7,244,Game trail,2,60,135,14:17,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF10,1,31,05/08/2025,,,52.48305,121.72346,1009,4,298,Game trail,2,32,229,15:44,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF11,8,38,05/08/2025,,,52.47974,121.69116,1023,6,205,Game trail,2,62,222,16:43,1,1s,Reconyx,UTC-07:00,Maybe make 2 columns for DBH
+Bobcat Range Shifts,Alex Fraser,AF12,4,34,06/08/2025,,,52.44885,121.79261,903,1,155,Game trail,3,58,69,7:48,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF13,6,36,06/08/2025,,,52.46004,121.79796,879,11,180,Game trail,3,57,16,8:46,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF14,2,32,06/08/2025,,,52.46399,121.78904,904,8,46,Game trail,2,65,296,9:31,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF15,14,44,06/08/2025,,,52.4705,121.80177,883,4,310,Game trail,3,59,198,10:13,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF16,9,39,06/08/2025,,,52.46707,121.82468,797,110,158,Game trail,3,105,177,11:08,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF17,22,52,06/08/2025,,,52.45337,121.65423,946,4,33,Game trail,2,54,113,13:36,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF18,10,40,06/08/2025,,,52.4605,121.66812,960,5,161,Game trail,2,59,28,14:20,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF19,20,50,06/08/2025,,,52.48663,121.76711,1030,10,341,Game trail,2,80,201,15:57,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF20,7,37,06/08/2025,,,52.48063,121.77592,1109,15,180,Game trail,3,53,245,17:00,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF21,51,23,07/08/2025,,,52.42932,121.78573,736,10,164,Game trail,2,84,14,8:17,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF22,36,8,07/08/2025,,,52.43884,121.79234,760,30,195,Game trail,2.5,102,320,9:08,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF23,19,49,07/08/2025,,,52.47078,121.83991,755,19,216,Game trail,4,141,25,10:21,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF24,15,45,07/08/2025,,,52.44384,121.75189,889,8,178,Game trail,3,74,345,11:59,1,1s,Reconyx,UTC-07:00,
+Bobcat Range Shifts,Alex Fraser,AF25,17,47,07/08/2025,,,52.47593,121.80852,882,16,181,Game trail,4,65,98,13:54,1,1s,Reconyx,UTC-07:00,

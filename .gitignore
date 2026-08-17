@@ -1,0 +1,20 @@
+# RStudio project-specific user settings
+.Rproj.user
+
+# R command history
+.Rhistory
+
+# Saved R workspace/data
+.RData
+
+# RStudio user-specific data
+.Ruserdata
+
+# Saved figures
+figures/
+
+# Processed data
+data_processed/
+
+# Tabled results
+model_results_tabled/
