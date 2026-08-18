@@ -120,7 +120,7 @@ af_suntime <- readRDS("./data_processed/AF_daily_suntime.rds")
 AF_daily_table <- readRDS("./data_processed/AF_daily_table_covariates.rds")
 
 # Target species
-target_species <- c("Mule deer", "Black bear", "Snowshoe hare")
+target_species <- c("Mule deer", "Black bear", "Snowshoe hare", "Red squirrel")
 
 # filter to just species of interest
 af_suntime <- af_suntime %>% 

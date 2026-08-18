@@ -1,5 +1,5 @@
 #######################################################################
-###                       Map of study areas                        ###
+###                       Map of study area                         ###
 #######################################################################
 
 #### Load necessary packages
@@ -23,9 +23,17 @@ cams_sf <- cams %>%
            crs = 4326)   # WGS84
 
 # One point per study site (centroid of all cameras in that site)
-w <- cams_sf %>%
-  group_by(Site) %>%
-  summarise(geometry = st_centroid(st_union(geometry)))
+site_points <- lapply(unique(cams_sf$Site), function(s) {
+  
+  x <- cams_sf[cams_sf$Site == s, ]
+  
+  st_sf(
+    Site = s,
+    geometry = st_centroid(st_combine(st_geometry(x))),
+    crs = st_crs(cams_sf)
+  )
+}) %>%
+  do.call(rbind, .)
 
 af_pt <- site_points %>% filter(Site == "Alex Fraser")
 tl_pt <- site_points %>% filter(Site == "Tenquille Lake")
@@ -33,8 +41,6 @@ tl_pt <- site_points %>% filter(Site == "Tenquille Lake")
 # Zoom window (50 km buffer — adjust as needed)
 af_buf <- st_buffer(af_pt, dist = 50000)
 tl_buf <- st_buffer(tl_pt, dist = 50000)
-
-
 
 # Download all admin-1 units (states/provinces) for the world
 provinces <- ne_download(

@@ -28,7 +28,7 @@ TL_rectable1 <- TL_rectable1 %>%
   filter(Date <= as.Date("2025-09-22"))
 
 # filter out non-animal detections
-non_animals <- c("Nothing", "nothing, People", "Unknown", "unknown", "Domestic dog")
+non_animals <- c("Nothing", "nothing", "People", "Unknown", "unknown", "Domestic dog")
 
 AF_animals <- AF_rectable1 %>%
   filter(!Species %in% non_animals)
@@ -38,11 +38,11 @@ TL_animals <- TL_rectable1 %>%
 
 # create count
 species_counts_af <- AF_animals %>%
-  count(Species, name = "Detections") %>%
+  dplyr::count(Species, name = "Detections") %>%
   arrange(Detections)
 
 species_counts_tl <- TL_animals %>%
-  count(Species, name = "Detections") %>%
+  dplyr::count(Species, name = "Detections") %>%
   arrange(Detections)
 
 # rename common names as scientific 

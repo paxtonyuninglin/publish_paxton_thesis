@@ -23,7 +23,7 @@ gavin$Site     <- "Gavin Lake"
 cams  <- read.csv("./data_raw/cam_data.csv")
 cams <- cams %>% 
   mutate(Longitude = Longitude * -1) %>% 
-  rename("Elevation (m)" = Elevation..m.)
+  dplyr::rename("Elevation (m)" = Elevation..m.)
 
 cams_sf <- cams %>%
   st_as_sf(coords = c("Longitude", "Latitude"),

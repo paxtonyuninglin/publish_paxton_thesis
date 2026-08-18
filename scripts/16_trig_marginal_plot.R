@@ -1,3 +1,8 @@
+#######################################################################
+###         This script takes a long time to run!!                  ###
+###                                                                 ###
+#######################################################################
+
 # Load Libraries
 rm(list = ls())
 set.seed(129)
@@ -36,13 +41,13 @@ plot_effect <- function(model, data) {
                           na.rm = TRUE)
   
   newdat <- expand.grid(
-    Suntime = seq(0, 2*pi, length.out = 100),
+    Suntime = seq(0, 2*pi, length.out = 50),
     temp_scaled = temp_scaled,
     Station = unique(data$Station)[1]
   )
   
   ## add raw temperatures for plotting only
-  newdat$temp <- rep(temp_raw, each = 100)
+  newdat$temp <- rep(temp_raw, each = 50)
   
   print(names(newdat))   # should include temp_scaled
   
