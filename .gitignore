@@ -11,10 +11,13 @@
 .Ruserdata
 
 # Saved figures
-figures/
+figures/*
+!figures/.gitkeep
 
 # Processed data
-data_processed/
+data_processed/*
+!data_processed/.gitkeep
 
 # Tabled results
-model_results_tabled/
+model_results_tabled/*
+!model_results_tabled/.gitkeep
