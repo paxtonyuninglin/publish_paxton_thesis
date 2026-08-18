@@ -8,7 +8,7 @@ library(writexl)
 library(tibble)
 
 #### Load dataframe
-AF_daily_table <- readRDS("./PUBLISH!!!/data_processed/AF_daily_table_covariates.rds")
+AF_daily_table <- readRDS("./data_processed/AF_daily_table_covariates.rds")
 
 # scale canopy and elevation
 AF_daily_table_scaled <- AF_daily_table %>% 
@@ -33,8 +33,8 @@ extract_coef <- function(model){
 
 af_temp_model_co <- extract_coef(af_temp_model)
 
-# save the model results
-write_xlsx(af_temp_model_co, "./PUBLISH!!!/data_processed/af_temp_model.xlsx")
+# save the excel sheet model results 
+write_xlsx(af_temp_model_co, "./model_results_tabled/af_temp_model.xlsx")
 
 # save models
-saveRDS(af_temp_model, "./PUBLISH!!!/data_processed/af_temp_model.rds")
+saveRDS(af_temp_model, "./data_processed/af_temp_model.rds")

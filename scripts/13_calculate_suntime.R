@@ -9,8 +9,8 @@ library(mgcv)
 library(overlap)
 
 # load files
-TL_daily_table_raw <- read.csv("./PUBLISH!!!/data_processed/TL_table_cleaned.csv")
-AF_daily_table_raw <- read.csv("./PUBLISH!!!/data_processed/AF_table_cleaned.csv")
+TL_daily_table_raw <- read.csv("./data_processed/TL_table_cleaned.csv")
+AF_daily_table_raw <- read.csv("./data_processed/AF_table_cleaned.csv")
 
 #######################################################################
 ###                      Tenquille Lake                             ###
@@ -39,11 +39,13 @@ TL_daily_table_raw <-  TL_daily_table_raw %>%
 # Create a SpatialPoints object with the location
 coords <- matrix(c(-123.06155, 50.52989), nrow=1)
 
+# Calculate the solar position corresponding to each detection time.
 TL_daily_table_raw <- TL_daily_table_raw %>% 
   mutate(suntime = sunTime(time_radians, date, coords)) %>% 
   dplyr::select(-time_hms, -seconds_since_midnight, -time_radians)
 
-saveRDS(TL_daily_table_raw, "./PUBLISH!!!/data_processed/TL_daily_suntime.rds")
+# Save the processed dataset containing the calculated solar-position
+saveRDS(TL_daily_table_raw, "./data_processed/TL_daily_suntime.rds")
 
 #######################################################################
 ###                        Alex Fraser                              ###
@@ -72,8 +74,10 @@ AF_daily_table_raw <-  AF_daily_table_raw %>%
 # Create a SpatialPoints object with the location
 coords <- matrix(c(-121.78904, 52.46399), nrow=1)
 
+# Calculate the solar position corresponding to each detection time.
 AF_daily_table_raw <- AF_daily_table_raw %>% 
   mutate(suntime = sunTime(time_radians, date, coords)) %>% 
   dplyr::select(-time_hms, -seconds_since_midnight, -time_radians)
 
-saveRDS(AF_daily_table_raw, "./PUBLISH!!!/data_processed/AF_daily_suntime.rds")
+# Save the processed dataset containing the calculated solar-position
+saveRDS(AF_daily_table_raw, "./data_processed/AF_daily_suntime.rds")

@@ -1,5 +1,6 @@
 #######################################################################
 ###                         Daily Table                             ###
+###                        Tenquille Lake                           ###
 #######################################################################
 library(dplyr)
 library(lubridate)
@@ -10,8 +11,8 @@ library(ggplot2)
 
 #### Create days for 0 detection for black bear, mule deer, snowshoe hare, and red squirrel
 # load camera data
-workflow_tl_sept <- read.csv("./PUBLISH!!!/data_raw/cam_workflow_tl_sept.csv")
-workflow_tl_oct <- read.csv("./PUBLISH!!!/data_raw/cam_workflow_tl_oct.csv")
+workflow_tl_sept <- read.csv("./data_raw/cam_workflow_tl_sept.csv")
+workflow_tl_oct <- read.csv("./data_raw/cam_workflow_tl_oct.csv")
 
 # Rename columns and select necessary columns
 workflow_tl_sept <- workflow_tl_sept %>% 
@@ -61,7 +62,7 @@ workflow_tl <- workflow_tl %>%
   )
 
 # save workflow
-write.csv(workflow_tl, "./PUBLISH!!!/data_processed/workflow_tl.csv", row.names = FALSE)
+write.csv(workflow_tl, "./data_processed/workflow_tl.csv", row.names = FALSE)
 
 # Create column for daily detections, 
 TL_daily_table <- TL_daily_table_raw %>%
@@ -96,4 +97,4 @@ TL_daily_filled <- full_grid %>%
   mutate(daily_detections = replace_na(daily_detections, 0))
 
 # save table for joining temperature data
-saveRDS(TL_daily_filled, "./PUBLISH!!!/data_processed/TL_daily_filled.rds")
+saveRDS(TL_daily_filled, "./data_processed/TL_daily_filled.rds")

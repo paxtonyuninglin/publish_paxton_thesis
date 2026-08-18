@@ -11,13 +11,13 @@ library(cowplot)
 library(ggh4x)
 
 # Load models
-af_deer_temp_diff <- readRDS("./PUBLISH!!!/data_processed/af_deer_temp_diff.rds")
-af_bear_temp_diff <- readRDS("./PUBLISH!!!/data_processed/af_bear_temp_diff.rds")
-af_squirrel_temp_diff <- readRDS("./PUBLISH!!!/data_processed/af_squirrel_temp_diff.rds")
+af_deer_temp_diff <- readRDS("./data_processed/af_deer_temp_diff.rds")
+af_bear_temp_diff <- readRDS("./data_processed/af_bear_temp_diff.rds")
+af_squirrel_temp_diff <- readRDS("./data_processed/af_squirrel_temp_diff.rds")
 
 #### Temp*Canopy: Create synthetic dataframe for prediction
 # Load scaled data
-AF_daily_table_scaled <- readRDS("./PUBLISH!!!/data_processed/AF_daily_table_scaled_temp.rds")
+AF_daily_table_scaled <- readRDS("./data_processed/AF_daily_table_scaled_temp.rds")
 
 # extract temperature values
 temp_vals_day <- seq(
@@ -233,7 +233,7 @@ af_temp_pred
 
 # combine plot with Tenquille lake
 # load plot
-tl_plot <- readRDS("./PUBLISH!!!/figures/tl_temp_pred.rds")
+tl_plot <- readRDS("./figures/tl_temp_pred.rds")
 
 # force each panel to be the same size
 tl_plot <- tl_plot +
@@ -253,5 +253,5 @@ combined <- plot_grid(
 combined
 
 #save the figure
-ggsave(file = "./PUBLISH!!!/figures/spatial_model.jpg", plot = combined, 
-       dpi = 800, units = "mm", width = 320, height = 270)
+ggsave(file = "./figures/spatial_model.jpg", plot = combined, 
+       dpi = 800, units = "mm", width = 280, height = 250)

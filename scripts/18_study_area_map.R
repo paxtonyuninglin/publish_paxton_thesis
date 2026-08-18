@@ -1,6 +1,5 @@
 #######################################################################
-###                       Map of study area                         ###
-###                         Tenquille Lake                          ###
+###                       Map of study areas                        ###
 #######################################################################
 
 #### Load necessary packages
@@ -15,7 +14,7 @@ library(osmextract)
 library(bcdata)
 
 #### Load camera points
-cams  <- read.csv("./PUBLISH!!!/data_raw/cam_data.csv")
+cams  <- read.csv("./data_raw/cam_data.csv")
 cams <- cams %>% 
   mutate(Longitude = Longitude * -1)
 
@@ -82,6 +81,7 @@ study_map <- ggplot() +
 
 study_map
 
+# Reproject map using an azimuthal equidistant projection
 study_map_globe <- study_map +
   coord_sf(
     crs = "+proj=aeqd +lat_0=55 +lon_0=-125",
@@ -90,7 +90,8 @@ study_map_globe <- study_map +
 
 study_map_globe
 
-tiff("PUBLISH!!!/figures/study_map_globe.tiff",
+# Export map as a high-resolution TIFF
+tiff("figures/study_map_globe.tiff",
      width = 2500, height = 2500, res = 300,
      compression = "lzw")
 

@@ -13,14 +13,14 @@ library(viridis)
 library(terra)
 
 #### park boundaries
-tenquille <- st_read("./PUBLISH!!!/data_raw/tenquille-lake.geojson", quiet = TRUE)
-gavin <- st_read("./PUBLISH!!!/data_raw/gavin-lake.geojson", quiet = TRUE)
+tenquille <- st_read("./data_raw/tenquille-lake.geojson", quiet = TRUE)
+gavin <- st_read("./data_raw/gavin-lake.geojson", quiet = TRUE)
 
 tenquille$Site <- "Tenquille Lake"
 gavin$Site     <- "Gavin Lake"
 
 #### Load camera points
-cams  <- read.csv("./PUBLISH!!!/data_raw/cam_data.csv")
+cams  <- read.csv("./data_raw/cam_data.csv")
 cams <- cams %>% 
   mutate(Longitude = Longitude * -1) %>% 
   rename("Elevation (m)" = Elevation..m.)
@@ -38,7 +38,7 @@ cams_tenquille <- st_intersection(cams_bc, tenquille_bc)
 cams_gavin     <- st_intersection(cams_bc, gavin_bc)
 
 # Load georeferenced TIFF
-bg <- rast("./PUBLISH!!!/data_raw/tenquille_lake_map_simple.tif")
+bg <- rast("./data_raw/tenquille_lake_map_simple.tif")
 
 
 bg_df <- as.data.frame(bg, xy = TRUE)
@@ -79,7 +79,7 @@ tl <- ggplot() +
   theme_void() +
   theme(legend.position = "right")
 
-tiff("PUBLISH!!!/figures/tl.tiff",
+tiff("figures/tl.tiff",
      width = 3300, height = 1980, res = 900,
      compression = "lzw")
 
@@ -88,7 +88,7 @@ tl
 dev.off()
 
 # Load georeferenced TIFF
-bg <- rast("./PUBLISH!!!/data_raw/gavin_lake_map_simple.tif")
+bg <- rast("./data_raw/gavin_lake_map_simple.tif")
 
 
 bg_df <- as.data.frame(bg, xy = TRUE)
@@ -137,7 +137,7 @@ af <- ggplot() +
   theme_void() +
   theme(legend.position = "right")
 
-tiff("PUBLISH!!!/figures/af.tiff",
+tiff("figures/af.tiff",
      width = 4500, height = 2700, res = 900,
      compression = "lzw")
 

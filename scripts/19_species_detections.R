@@ -11,9 +11,9 @@ library(patchwork)
 library(tidyr)
 
 # read detection data
-AF_rectable1 <- read.csv("./PUBLISH!!!/data_raw/AF_table.csv")
-TL_Oct_rectable1 <- read.csv("./PUBLISH!!!/data_raw/TL_oct_table.csv")
-TL_Sept_rectable1 <- read.csv("./PUBLISH!!!/data_raw/TL_sept_table.csv")
+AF_rectable1 <- read.csv("./data_raw/AF_table.csv")
+TL_Oct_rectable1 <- read.csv("./data_raw/TL_oct_table.csv")
+TL_Sept_rectable1 <- read.csv("./data_raw/TL_sept_table.csv")
 
 # join Tenquille lake october and september
 TL_rectable1 <- bind_rows(
@@ -28,7 +28,7 @@ TL_rectable1 <- TL_rectable1 %>%
   filter(Date <= as.Date("2025-09-22"))
 
 # filter out non-animal detections
-non_animals <- c("Nothing", "People", "Unknown", "unknown", "Domestic dog")
+non_animals <- c("Nothing", "nothing, People", "Unknown", "unknown", "Domestic dog")
 
 AF_animals <- AF_rectable1 %>%
   filter(!Species %in% non_animals)
@@ -77,6 +77,7 @@ sci_names <- tibble::tribble(
   "Elk", "Cervus canadensis"
 )
 
+# Join the scientific-name lookup table to the species-count table.
 species_counts_af <- species_counts_af %>%
   left_join(sci_names, by = "Species") %>%
   mutate(label = paste0(Species, " (", Scientific, ")"))
@@ -119,6 +120,7 @@ tl_detection <- ggplot(species_counts_tl, aes(x = Detections, y = reorder(label,
 
 tl_detection
 
+# Combine study-site plots
 combined_detections <- (tl_detection | af_detection) +
   plot_layout(guides = "collect")  +
   plot_annotation(tag_levels = "A")
@@ -126,4 +128,4 @@ combined_detections <- (tl_detection | af_detection) +
 combined_detections
 
 # save
-ggsave(file = "./PUBLISH!!!/figures/combined_detections.jpg", plot = combined_detections, dpi = 800, units = "mm", width = 500, height = 150)
+ggsave(file = "./figures/combined_detections.jpg", plot = combined_detections, dpi = 800, units = "mm", width = 500, height = 150)

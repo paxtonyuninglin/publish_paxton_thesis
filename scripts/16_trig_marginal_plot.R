@@ -12,17 +12,17 @@ library(purrr)
 library(ggplot2)
 
 # load models
-tl_deer_trig <- readRDS("./PUBLISH!!!/data_processed/tl_deer_trig.rds")
-tl_bear_trig <- readRDS("./PUBLISH!!!/data_processed/tl_bear_trig.rds")
-tl_hare_trig <- readRDS("./PUBLISH!!!/data_processed/tl_hare_trig.rds")
-af_deer_trig <- readRDS("./PUBLISH!!!/data_processed/af_deer_trig.rds")
-af_bear_trig <- readRDS("./PUBLISH!!!/data_processed/af_bear_trig.rds")
-af_hare_trig <- readRDS("./PUBLISH!!!/data_processed/af_hare_trig.rds")
-af_squirrel_trig <- readRDS("./PUBLISH!!!/data_processed/af_squirrel_trig.rds")
+tl_deer_trig <- readRDS("./data_processed/tl_deer_trig.rds")
+tl_bear_trig <- readRDS("./data_processed/tl_bear_trig.rds")
+tl_hare_trig <- readRDS("./data_processed/tl_hare_trig.rds")
+af_deer_trig <- readRDS("./data_processed/af_deer_trig.rds")
+af_bear_trig <- readRDS("./data_processed/af_bear_trig.rds")
+af_hare_trig <- readRDS("./data_processed/af_hare_trig.rds")
+af_squirrel_trig <- readRDS("./data_processed/af_squirrel_trig.rds")
 
 # load previous data sets
-full_grid_temp_tl <- readRDS("./PUBLISH!!!/data_processed/full_grid_tl_new.rds")
-full_grid_temp_af <- readRDS("./PUBLISH!!!/data_processed/full_grid_af_new.rds")
+full_grid_temp_tl <- readRDS("./data_processed/full_grid_tl_new.rds")
+full_grid_temp_af <- readRDS("./data_processed/full_grid_af_new.rds")
 
 # reusable plot
 plot_effect <- function(model, data) {
@@ -83,6 +83,6 @@ all_preds_tl <- bind_rows(deer_tl_plot, bear_tl_plot, hare_tl_plot)
 all_preds_af <- bind_rows(deer_af_plot, bear_af_plot, hare_af_plot, squirrel_af_plot)
 
 # save
-saveRDS(all_preds_tl, "./PUBLISH!!!/data_processed/all_preds_tl.rds")
-saveRDS(all_preds_af, "./PUBLISH!!!/data_processed/all_preds_af.rds")
+saveRDS(all_preds_tl, "./data_processed/all_preds_tl.rds")
+saveRDS(all_preds_af, "./data_processed/all_preds_af.rds")
 

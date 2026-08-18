@@ -11,8 +11,8 @@ library(writexl)
 library(purrr)
 
 # load data
-full_grid_temp_tl <- readRDS("./PUBLISH!!!/data_processed/full_grid_tl_new.rds")
-full_grid_temp_af <- readRDS("./PUBLISH!!!/data_processed/full_grid_af_new.rds")
+full_grid_temp_tl <- readRDS("./data_processed/full_grid_tl_new.rds")
+full_grid_temp_af <- readRDS("./data_processed/full_grid_af_new.rds")
 
 # convert to binary yes or no
 full_grid_temp_tl <- full_grid_temp_tl %>%
@@ -75,13 +75,13 @@ results_clean <- bind_rows(
 # export
 write_xlsx(
   results_clean,
-  "./PUBLISH!!!/data_processed/results_species_models.xlsx"
+  "./model_results_tabled/results_species_models.xlsx"
 )
 
 # save models
-saveRDS(tl_deer_trig, "./PUBLISH!!!/data_processed/tl_deer_trig.rds")
-saveRDS(tl_bear_trig, "./PUBLISH!!!/data_processed/tl_bear_trig.rds")
-saveRDS(tl_hare_trig, "./PUBLISH!!!/data_processed/tl_hare_trig.rds")
+saveRDS(tl_deer_trig, "./data_processed/tl_deer_trig.rds")
+saveRDS(tl_bear_trig, "./data_processed/tl_bear_trig.rds")
+saveRDS(tl_hare_trig, "./data_processed/tl_hare_trig.rds")
 
 #######################################################################
 ###                         Alex Fraser                             ###
@@ -139,11 +139,11 @@ results_clean <- bind_rows(
 # export
 write_xlsx(
   results_clean,
-  "./PUBLISH!!!/data_processed/results_species_models_af.xlsx"
+  "./model_results_tabled/results_species_models_af.xlsx"
 )
 
 # save models
-saveRDS(af_deer_trig, "./PUBLISH!!!/data_processed/af_deer_trig.rds")
-saveRDS(af_bear_trig, "./PUBLISH!!!/data_processed/af_bear_trig.rds")
-saveRDS(af_hare_trig, "./PUBLISH!!!/data_processed/af_hare_trig.rds")
-saveRDS(af_squirrel_trig, "./PUBLISH!!!/data_processed/af_squirrel_trig.rds")
+saveRDS(af_deer_trig, "./data_processed/af_deer_trig.rds")
+saveRDS(af_bear_trig, "./data_processed/af_bear_trig.rds")
+saveRDS(af_hare_trig, "./data_processed/af_hare_trig.rds")
+saveRDS(af_squirrel_trig, "./data_processed/af_squirrel_trig.rds")

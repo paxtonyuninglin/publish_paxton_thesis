@@ -8,7 +8,7 @@ library(writexl)
 library(tibble)
 
 #### Load dataframe
-AF_daily_table <- readRDS("./PUBLISH!!!/data_processed/AF_daily_table_covariates.rds")
+AF_daily_table <- readRDS("./data_processed/AF_daily_table_covariates.rds")
 
 # difference between local and site
 AF_daily_table <- AF_daily_table %>% 
@@ -25,7 +25,7 @@ AF_daily_table <- AF_daily_table %>%
   ungroup()
 
 # save scaled dataframe
-saveRDS(AF_daily_table, "./PUBLISH!!!/data_processed/AF_daily_table_scaled_temp.rds")
+saveRDS(AF_daily_table, "./data_processed/AF_daily_table_scaled_temp.rds")
 
 temp_activity_model <- function(species_name, data = AF_daily_table){
   
@@ -56,18 +56,20 @@ extract_coef <- function(model, species){
     relocate(Species)
 }
 
+# combine species results and assign lable
 af_all_results <- bind_rows(
   extract_coef(af_deer_temp_diff, "Mule deer"),
   extract_coef(af_bear_temp_diff, "Black bear"),
   extract_coef(af_squirrel_temp_diff, "Red squirrel")
 )
 
+# save the excel sheet
 write_xlsx(
   af_all_results,
-  "./PUBLISH!!!/data_processed/af_temp_activity_model_results.xlsx"
+  "./model_results_tabled/af_temp_activity_model_results.xlsx"
 )
 
 # save models
-saveRDS(af_deer_temp_diff, "./PUBLISH!!!/data_processed/af_deer_temp_diff.rds")
-saveRDS(af_bear_temp_diff, "./PUBLISH!!!/data_processed/af_bear_temp_diff.rds")
-saveRDS(af_squirrel_temp_diff, "./PUBLISH!!!/data_processed/af_squirrel_temp_diff.rds")
+saveRDS(af_deer_temp_diff, "./data_processed/af_deer_temp_diff.rds")
+saveRDS(af_bear_temp_diff, "./data_processed/af_bear_temp_diff.rds")
+saveRDS(af_squirrel_temp_diff, "./data_processed/af_squirrel_temp_diff.rds")

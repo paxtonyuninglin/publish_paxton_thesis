@@ -1,5 +1,6 @@
 #######################################################################
 ###                         Daily Table                             ###
+###                          Alex Fraser                            ###
 #######################################################################
 library(dplyr)
 library(lubridate)
@@ -8,7 +9,7 @@ library(tidyr)
 
 #### Create days for 0 detection for black bear, mule deer, snowshoe hare, and red squirrel
 # load camera data
-workflow_af <- read.csv("./PUBLISH!!!/data_raw/cam_workflow_af.csv")
+workflow_af <- read.csv("./data_raw/cam_workflow_af.csv")
 
 workflow_af <- workflow_af %>% 
   mutate(start_date = dmy(start_date)) %>% 
@@ -18,7 +19,7 @@ workflow_af <- workflow_af %>%
   dplyr::select(Station, start_date, end_date)
 
 # save workflow
-write.csv(workflow_af, "./PUBLISH!!!/data_processed/workflow_af.csv", row.names = FALSE)
+write.csv(workflow_af, "./data_processed/workflow_af.csv", row.names = FALSE)
 
 # Create column for daily detections, 
 AF_daily_table <- AF_daily_table_raw %>%
@@ -54,4 +55,4 @@ AF_daily_filled <- full_grid %>%
   mutate(daily_detections = replace_na(daily_detections, 0))
 
 # save table for joining temperature data
-saveRDS(AF_daily_filled, "./PUBLISH!!!/data_processed/AF_daily_filled.rds")
+saveRDS(AF_daily_filled, "./data_processed/AF_daily_filled.rds")

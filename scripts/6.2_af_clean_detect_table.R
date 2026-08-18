@@ -1,6 +1,6 @@
 #######################################################################
-###                         Daily Table                             ###
-###                            Q2, 3                                ###
+###                        Detection Table                          ###
+###                          Alex Fraser                            ###
 #######################################################################
 library(dplyr)
 library(lubridate)
@@ -9,10 +9,14 @@ library(purrr)
 library(ggplot2)
 
 ## Load data files
-AF_rectable1 <- read.csv("./PUBLISH!!!/data_raw/AF_table.csv")
+AF_rectable1 <- read.csv("./data_raw/AF_table.csv")
 
-#Correct date and time 
-# AF11 Time error: says 04:43 but reference says 16:43, off by 12 hours
+# Camera data files to obtain deployment date and time
+AF_cam <- read.csv("./data_raw/cam_workflow_af.csv")
+
+#####
+# Correct date and time 
+## AF11 Time error: says 04:43 but reference says 16:43, off by 12 hours
 AF_rectable1 <- AF_rectable1 %>%
   mutate(DateTimeOriginal = ymd_hms(DateTimeOriginal))
 
@@ -25,10 +29,7 @@ AF_rectable1 <- AF_rectable1 %>%
     Date = as.Date(DateTimeOriginal),                 
     Time = format(DateTimeOriginal, "%H:%M:%S"))
 
-# Camera data files to obtain deployment date and time
-AF_cam <- read.csv("./PUBLISH!!!/data_raw/cam_workflow_af.csv")
-
-# Extract deployment or servicing start date and times, then create a datetime column
+## Extract deployment or servicing start date and times, then create a datetime column
 AF_cam  <- AF_cam %>% 
   dplyr::select(camera, start_date, start_time) %>% 
   dplyr::rename(Station = camera) %>%
@@ -59,4 +60,4 @@ AF_daily_table_raw <- AF_daily_table_raw %>%
   filter(Date <= as.Date("2025-09-22"))
 
 # save the table to be used for 24 hour analysis
-write.csv(AF_daily_table_raw, "./PUBLISH!!!/data_processed/AF_table_cleaned.csv", row.names = FALSE)
+write.csv(AF_daily_table_raw, "./data_processed/AF_table_cleaned.csv", row.names = FALSE)

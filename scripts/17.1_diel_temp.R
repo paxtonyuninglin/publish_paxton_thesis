@@ -9,8 +9,8 @@ library(mgcv)
 library(overlap)
 
 # load data
-tl_temp <- readRDS("./PUBLISH!!!/data_processed/tl_temp_capped.rds")
-af_temp <- readRDS("./PUBLISH!!!/data_processed/af_temp_clean.rds")
+tl_temp <- readRDS("./data_processed/tl_temp_capped.rds")
+af_temp <- readRDS("./data_processed/af_temp_clean.rds")
 
 # convert time to radians
 tl_temp_kde <- tl_temp %>%
@@ -50,6 +50,8 @@ af_temp_kde <-  af_temp_kde %>%
 coords_tl <- matrix(c(-123.06155, 50.52989), nrow=1)
 coords_af <- matrix(c(-121.78904, 52.46399), nrow=1)
 
+#####
+# Convert clock time to solar time
 tl_temp_kde <- tl_temp_kde %>% 
   mutate(suntime = sunTime(time_radians, date, coords_tl)) %>% 
   dplyr::select(-time_hms, -seconds_since_midnight, -time_radians)
@@ -58,9 +60,13 @@ af_temp_kde <- af_temp_kde %>%
   mutate(suntime = sunTime(time_radians, date, coords_af)) %>% 
   dplyr::select(-time_hms, -seconds_since_midnight, -time_radians)
 
+# Fit generalized additive models
+# Model temperature as a smooth, circular function of solar time.
 gam_fit_tl <- gam(temp ~ s(suntime, bs = "cc"), data = tl_temp_kde)
 gam_fit_af <- gam(temp ~ s(suntime, bs = "cc"), data = af_temp_kde)
 
+
+# Create prediction grids
 pred_grid_tl <- tibble(
   suntime = seq(0, 2*pi, length.out = 400)
 )
@@ -68,9 +74,11 @@ pred_grid_af <- tibble(
   suntime = seq(0, 2*pi, length.out = 400)
 )
 
+# Generate model predictions and standard errors
 tl_pred <- predict(gam_fit_tl, newdata = pred_grid_tl, se.fit = TRUE)
 af_pred <- predict(gam_fit_af, newdata = pred_grid_af, se.fit = TRUE)
 
+# Calculate confidence intervals
 pred_grid_tl <- pred_grid_tl %>%
   mutate(
     fit = tl_pred$fit,
@@ -87,15 +95,15 @@ pred_grid_af <- pred_grid_af %>%
     upper = fit + 1.96 * se
   )
 
-# label 
+# label study areas
 tl_pred <- pred_grid_tl %>%
   mutate(Site = "Tenquille")
 
 af_pred <- pred_grid_af %>%
   mutate(Site = "Alex Fraser")
 
-# combine
+# combine study areas
 temp_pred <- bind_rows(tl_pred, af_pred)
 
 # save dataframe to be plotted with trig plot
-saveRDS(temp_pred, "./PUBLISH!!!/data_processed/temp_pred.rds")
+saveRDS(temp_pred, "./data_processed/temp_pred.rds")

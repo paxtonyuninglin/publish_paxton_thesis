@@ -6,13 +6,13 @@ library(purrr)
 library(ggplot2)
 
 # load files
-TL_daily_filled <- readRDS("./PUBLISH!!!/data_processed/TL_daily_filled.rds")
-tl_avg_max_temp <- readRDS("./PUBLISH!!!/data_processed/tl_avg_max_temp_capped.rds")
-tl_daily_max_temp <- readRDS("./PUBLISH!!!/data_processed/max_daily_temperature_capped.rds")
-canopy_cover_data_joined <- read.csv("./PUBLISH!!!/data_processed/canopy_cover_data.csv")
-cam_data <- read.csv("./PUBLISH!!!/data_processed/cam_data_formatted.csv")
+TL_daily_filled <- readRDS("./data_processed/TL_daily_filled.rds")
+tl_avg_max_temp <- readRDS("./data_processed/tl_avg_max_temp_capped.rds")
+tl_daily_max_temp <- readRDS("./data_processed/max_daily_temperature_capped.rds")
+canopy_cover_data_joined <- read.csv("./data_processed/canopy_cover_data.csv")
+cam_data <- read.csv("./data_processed/cam_data_formatted.csv")
 
-#### Join iButton data in filled data table
+#### Join iButton and camera data in filled data table
 # canopy density
 TL_daily_table <- TL_daily_filled %>%
   left_join(canopy_cover_data_joined %>% 
@@ -31,17 +31,9 @@ TL_daily_table <- TL_daily_table %>%
 TL_daily_table <- TL_daily_table %>%
   left_join(tl_avg_max_temp, by = "Date")
 
-# Give day study average max temp data sets different names
-tl_avg_max_temp <- tl_avg_max_temp %>%
-  rename(day_max_temp = avg_max_temp)
-
-# Give day camera max temp data sets different names
-tl_daily_max_temp <- tl_daily_max_temp %>%
-  rename(day_daily_max_temp = daily_max_temp)
-
 # filter to just fall equinox
 TL_daily_table <- TL_daily_table %>% 
   filter(Date <= as.Date("2025-09-22"))
 
 # save the table to be used for modeling
-saveRDS(TL_daily_table, "./PUBLISH!!!/data_processed/TL_daily_table_covariates.rds")
+saveRDS(TL_daily_table, "./data_processed/TL_daily_table_covariates.rds")

@@ -10,8 +10,8 @@ library(tidyr)
 #######################################################################
 
 # load detection and cam functional dates
-tl_suntime <- readRDS("./PUBLISH!!!/data_processed/TL_daily_suntime.rds")
-TL_daily_table <- readRDS("./PUBLISH!!!/data_processed/TL_daily_table_covariates.rds")
+tl_suntime <- readRDS("./data_processed/TL_daily_suntime.rds")
+TL_daily_table <- readRDS("./data_processed/TL_daily_table_covariates.rds")
 
 # Target species
 target_species <- c("Mule deer", "Black bear", "Snowshoe hare")
@@ -22,11 +22,13 @@ tl_suntime <- tl_suntime %>%
 
 # rename suntime 
 tl_suntime <- tl_suntime %>% 
-  rename(Suntime = suntime)
+  dplyr::rename(Suntime = suntime)
 
-# round 
+## Divide the 24-hour cycle into 24 sun-time intervals
+# Define the width of each time interval.
 step <- 2 * pi / 24
 
+# Round each detection's sun position to the nearest one-hour interval.
 tl_suntime <- tl_suntime %>%
   mutate(
     Suntime = round(Suntime / step) * step
@@ -45,9 +47,10 @@ camera_days_24_tl <- TL_daily_table %>%
 
 # obtain max temp of day and night for TL
 avg_temp_lookup <- TL_daily_table %>%
-  select(Date, Species, avg_max_temp) %>%
+  dplyr::select(Date, Species, avg_max_temp) %>%
   distinct()
 
+# Add daily maximum temperature to every hourly interval.
 camera_days_24_tl <- camera_days_24_tl %>%
   left_join(avg_temp_lookup, by = c("Date", "Species")) %>%
   mutate(
@@ -57,7 +60,7 @@ camera_days_24_tl <- camera_days_24_tl %>%
   group_by(Station, Species) %>%
   fill(temp, .direction = "down") %>%
   ungroup() %>%
-  select(-avg_max_temp)
+  dplyr::select(-avg_max_temp)
 
 # make objects all the same class
 camera_days_24_tl <- camera_days_24_tl %>%
@@ -72,8 +75,8 @@ camera_days_24_tl <- camera_days_24_tl %>%
 #### Join detections and fill missing values with 0
 # Count detections in each suntime bucket
 det_counts <- tl_suntime %>%
-  group_by(Station, Date, Species, Suntime) %>%
-  summarise(n = n(), .groups = "drop")
+  dplyr::group_by(Station, Date, Species, Suntime) %>%
+  dplyr::summarise(n = dplyr::n(), .groups = "drop")
 
 # make objects all the same class
 det_counts <- det_counts %>%
@@ -85,7 +88,7 @@ det_counts <- det_counts %>%
     Date = force_tz(Date, tzone = "America/Vancouver")
   )
 
-# Join onto the full grid
+## Join detection counts to the complete 24-hour grid
 camera_days_24_tl <- camera_days_24_tl %>%
   left_join(
     det_counts,
@@ -96,6 +99,7 @@ camera_days_24_tl <- camera_days_24_tl %>%
   ) %>% 
   filter(!is.na(temp))
 
+## Scale temperature within species
 camera_days_24_tl <- camera_days_24_tl %>%
   group_by(Species) %>%
   mutate(
@@ -103,8 +107,8 @@ camera_days_24_tl <- camera_days_24_tl %>%
   ) %>%
   ungroup()
 
-# save for merging max temp data
-saveRDS(camera_days_24_tl, "./PUBLISH!!!/data_processed/full_grid_tl_new.rds")
+# save for trig GLMM model
+saveRDS(camera_days_24_tl, "./data_processed/full_grid_tl_new.rds")
 
 #######################################################################
 ###                        Alex Fraser                              ###
@@ -112,11 +116,11 @@ saveRDS(camera_days_24_tl, "./PUBLISH!!!/data_processed/full_grid_tl_new.rds")
 #######################################################################
 
 # load detection and cam functional dates
-af_suntime <- readRDS("./PUBLISH!!!/data_processed/AF_daily_suntime.rds")
-AF_daily_table <- readRDS("./PUBLISH!!!/data_processed/AF_daily_table_covariates.rds")
+af_suntime <- readRDS("./data_processed/AF_daily_suntime.rds")
+AF_daily_table <- readRDS("./data_processed/AF_daily_table_covariates.rds")
 
 # Target species
-target_species <- c("Mule deer", "Black bear", "Snowshoe hare", "Red squirrel")
+target_species <- c("Mule deer", "Black bear", "Snowshoe hare")
 
 # filter to just species of interest
 af_suntime <- af_suntime %>% 
@@ -124,11 +128,13 @@ af_suntime <- af_suntime %>%
 
 # rename suntime 
 af_suntime <- af_suntime %>% 
-  rename(Suntime = suntime)
+  dplyr::rename(Suntime = suntime)
 
-# round 
+## Divide the 24-hour cycle into 24 sun-time intervals
+# Define the width of each time interval.
 step <- 2 * pi / 24
 
+# Round each detection's sun position to the nearest one-hour interval.
 af_suntime <- af_suntime %>%
   mutate(
     Suntime = round(Suntime / step) * step
@@ -147,9 +153,10 @@ camera_days_24_af <- AF_daily_table %>%
 
 # obtain max temp of day and night for AF
 avg_temp_lookup <- AF_daily_table %>%
-  select(Date, Species, avg_max_temp) %>%
+  dplyr::select(Date, Species, avg_max_temp) %>%
   distinct()
 
+# Add daily maximum temperature to every hourly interval.
 camera_days_24_af <- camera_days_24_af %>%
   left_join(avg_temp_lookup, by = c("Date", "Species")) %>%
   mutate(
@@ -159,8 +166,7 @@ camera_days_24_af <- camera_days_24_af %>%
   group_by(Station, Species) %>%
   fill(temp, .direction = "down") %>%
   ungroup() %>%
-  select(-avg_max_temp)
-
+  dplyr::select(-avg_max_temp)
 
 # make objects all the same class
 camera_days_24_af <- camera_days_24_af %>%
@@ -175,8 +181,8 @@ camera_days_24_af <- camera_days_24_af %>%
 #### Join detections and fill missing values with 0
 # Count detections in each suntime bucket
 det_counts <- af_suntime %>%
-  group_by(Station, Date, Species, Suntime) %>%
-  summarise(n = n(), .groups = "drop")
+  dplyr::group_by(Station, Date, Species, Suntime) %>%
+  dplyr::summarise(n = dplyr::n(), .groups = "drop")
 
 # make objects all the same class
 det_counts <- det_counts %>%
@@ -188,7 +194,7 @@ det_counts <- det_counts %>%
     Date = force_tz(Date, tzone = "America/Vancouver")
   )
 
-# Join onto the full grid
+## Join detection counts to the complete 24-hour grid
 camera_days_24_af <- camera_days_24_af %>%
   left_join(
     det_counts,
@@ -199,6 +205,7 @@ camera_days_24_af <- camera_days_24_af %>%
   ) %>% 
   filter(!is.na(temp))
 
+## Scale temperature within species
 camera_days_24_af <- camera_days_24_af %>%
   group_by(Species) %>%
   mutate(
@@ -206,5 +213,5 @@ camera_days_24_af <- camera_days_24_af %>%
   ) %>%
   ungroup()
 
-# save for merging max temp data
-saveRDS(camera_days_24_af, "./PUBLISH!!!/data_processed/full_grid_af_new.rds")
+# save for trig GLMM model
+saveRDS(camera_days_24_af, "./data_processed/full_grid_af_new.rds")

@@ -7,7 +7,7 @@ library(plyr)
 library(dplyr)
 library(patchwork)
 
-TL_daily_table <- readRDS("PUBLISH!!!/data_processed/TL_daily_table_covariates.rds")
+TL_daily_table <- readRDS("data_processed/TL_daily_table_covariates.rds")
 
 cc_elev_plot <- TL_daily_table %>% 
   distinct(Station, Elevation, canopy_cover_avg) %>% 
@@ -46,4 +46,4 @@ elev_canopy_tl <- ggplot(cc_elev_plot, aes(x = Elevation, y = canopy_cover_avg))
   theme_minimal(base_size = 14)
 elev_canopy_tl
 
-ggsave(file = "./PUBLISH!!!/figures/elev_canopy_tl.jpg", plot = elev_canopy_tl, dpi = 800, units = "mm", width = 250, height = 100)
+ggsave(file = "./figures/elev_canopy_tl.jpg", plot = elev_canopy_tl, dpi = 800, units = "mm", width = 250, height = 100)

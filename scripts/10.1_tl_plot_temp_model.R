@@ -9,12 +9,11 @@ library(grid)
 library(gtable)
 
 # Load models
-tl_deer_temp_diff <- readRDS("./PUBLISH!!!/data_processed/tl_deer_temp_diff.rds")
-tl_bear_temp_diff <- readRDS("./PUBLISH!!!/data_processed/tl_bear_temp_diff.rds")
+tl_deer_temp_diff <- readRDS("./data_processed/tl_deer_temp_diff.rds")
+tl_bear_temp_diff <- readRDS("./data_processed/tl_bear_temp_diff.rds")
 
-#### Temp*Canopy: Create synthetic dataframe for prediction
 # Load scaled data
-TL_daily_table_scaled <- readRDS("./PUBLISH!!!/data_processed/TL_daily_table_scaled_temp.rds")
+TL_daily_table_scaled <- readRDS("./data_processed/TL_daily_table_scaled_temp.rds")
 
 #####
 # extract temperature values
@@ -226,4 +225,4 @@ tl_temp_pred <-ggplot(all_pred,aes(x = avg_max_temp,y = pred, color = temp_diff_
 tl_temp_pred
 
 #save the plot to be combined with alex fraser plot
-saveRDS(tl_temp_pred, "./PUBLISH!!!/figures/tl_temp_pred.rds")
+saveRDS(tl_temp_pred, "./figures/tl_temp_pred.rds")

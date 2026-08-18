@@ -8,7 +8,7 @@ library(writexl)
 library(tibble)
 
 #### Load dataframe
-TL_daily_table <- readRDS("./PUBLISH!!!/data_processed/TL_daily_table_covariates.rds")
+TL_daily_table <- readRDS("./data_processed/TL_daily_table_covariates.rds")
 
 # difference between local and site
 TL_daily_table <- TL_daily_table %>% 
@@ -25,7 +25,7 @@ TL_daily_table <- TL_daily_table %>%
   ungroup()
 
 # save scaled dataframe
-saveRDS(TL_daily_table, "./PUBLISH!!!/data_processed/TL_daily_table_scaled_temp.rds")
+saveRDS(TL_daily_table, "./data_processed/TL_daily_table_scaled_temp.rds")
 
 temp_activity_model <- function(species_name, data = TL_daily_table){
   
@@ -55,16 +55,18 @@ extract_coef <- function(model, species){
     relocate(Species)
 }
 
+# combine species results and assign lable
 tl_all_results <- bind_rows(
   extract_coef(tl_deer_temp_diff, "Mule deer"),
   extract_coef(tl_bear_temp_diff, "Black bear")
 )
 
+# save the excel sheet
 write_xlsx(
   tl_all_results,
-  "./PUBLISH!!!/data_processed/tl_temp_activity_model_results.xlsx"
+  "./model_results_tabled/tl_temp_activity_model_results.xlsx"
 )
 
 # save models
-saveRDS(tl_deer_temp_diff, "./PUBLISH!!!/data_processed/tl_deer_temp_diff.rds")
-saveRDS(tl_bear_temp_diff, "./PUBLISH!!!/data_processed/tl_bear_temp_diff.rds")
+saveRDS(tl_deer_temp_diff, "./data_processed/tl_deer_temp_diff.rds")
+saveRDS(tl_bear_temp_diff, "./data_processed/tl_bear_temp_diff.rds")

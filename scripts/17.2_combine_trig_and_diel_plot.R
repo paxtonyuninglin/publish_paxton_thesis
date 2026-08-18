@@ -14,9 +14,9 @@ library(ggpubr)
 library(patchwork)
 
 # load all datasets
-all_preds_tl <- readRDS("./PUBLISH!!!/data_processed/all_preds_tl.rds")
-all_preds_af <- readRDS("./PUBLISH!!!/data_processed/all_preds_af.rds")
-temp_pred <- readRDS("./PUBLISH!!!/data_processed/temp_pred.rds")
+all_preds_tl <- readRDS("./data_processed/all_preds_tl.rds")
+all_preds_af <- readRDS("./data_processed/all_preds_af.rds")
+temp_pred <- readRDS("./data_processed/temp_pred.rds")
 
 # re-order species
 all_preds_tl <- all_preds_tl %>%
@@ -141,6 +141,7 @@ tl_trig <- ggplot(
 
 tl_trig
 
+# force each panel to be the same size
 tl_trig <- tl_trig +
   force_panelsizes(rows = unit(6, "cm"), cols = unit(9, "cm"))
 
@@ -192,6 +193,7 @@ diel_temp <- ggplot(temp_pred, aes(x = suntime, y = fit, colour = Site, fill = S
 
 diel_temp
 
+# force each panel to be the same size
 diel_temp <- diel_temp +
   force_panelsizes(rows = unit(6, "cm"), cols = unit(9, "cm"))
 
@@ -281,9 +283,11 @@ af_trig <- ggplot(
 
 af_trig
 
+# force each panel to be the same size
 af_trig <- af_trig +
   force_panelsizes(rows = unit(6, "cm"), cols = unit(9, "cm"))
 
+# combine all the panels from Alex Fraser and Tenquille Lake
 multi_panel <- ggarrange(
   af_trig,
   combined_tl,
@@ -295,12 +299,8 @@ multi_panel <- ggarrange(
 
 multi_panel
 
-# force each panel to be the same size
-# multi_panel <- multi_panel +
-#   force_panelsizes(rows = unit(14, "cm"), cols = unit(20, "cm"))
-
 #save the figure
-tiff("PUBLISH!!!/figures/multi_panel_trig.tiff",
+tiff("figures/multi_panel_trig.tiff",
      width = 55, height = 38, units = "cm", res = 900,
      compression = "lzw")
 

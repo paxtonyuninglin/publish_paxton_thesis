@@ -9,12 +9,12 @@ library(grid)
 library(gtable)
 
 # Load models
-tl_temp_model <- readRDS("./PUBLISH!!!/data_processed/tl_temp_model.rds")
-af_temp_model <- readRDS("./PUBLISH!!!/data_processed/af_temp_model.rds")
+tl_temp_model <- readRDS("./data_processed/tl_temp_model.rds")
+af_temp_model <- readRDS("./data_processed/af_temp_model.rds")
 
 # Load scaled data
-TL_daily_table <- readRDS("./PUBLISH!!!/data_processed/TL_daily_table_scaled_temp.rds")
-AF_daily_table <- readRDS("./PUBLISH!!!/data_processed/AF_daily_table_scaled_temp.rds")
+TL_daily_table <- readRDS("./data_processed/TL_daily_table_scaled_temp.rds")
+AF_daily_table <- readRDS("./data_processed/AF_daily_table_scaled_temp.rds")
 
 # scale canopy and elevation
 TL_daily_table_scaled_temp <- TL_daily_table %>% 
@@ -213,5 +213,5 @@ combined_plot
 combined_plot <- combined_plot +
   force_panelsizes(rows = unit(6, "cm"), cols = unit(9, "cm"))
 
-
-ggsave(file = "./PUBLISH!!!/figures/habitat_temp_model.jpg", plot = combined_plot, dpi = 800, units = "mm", width = 290, height = 110)
+# save the sized figure
+ggsave(file = "./figures/habitat_temp_model.jpg", plot = combined_plot, dpi = 800, units = "mm", width = 290, height = 110)
