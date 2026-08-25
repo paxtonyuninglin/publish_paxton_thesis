@@ -4,7 +4,7 @@ library(raster)
 library(dplyr)
 library(lubridate)
 
-## Load table files
+## Load tenquille lake temp table files
 tl_temp <- read.csv("./data_raw/tl_temp.csv")
 
 ## Clean station names
