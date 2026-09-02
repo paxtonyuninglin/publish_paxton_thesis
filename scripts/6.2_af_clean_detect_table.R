@@ -17,9 +17,11 @@ AF_cam <- read.csv("./data_raw/cam_workflow_af.csv")
 #####
 # Correct date and time 
 ## AF11 Time error: says 04:43 but reference says 16:43, off by 12 hours
+# reformate date time column into a datetime object
 AF_rectable1 <- AF_rectable1 %>%
   mutate(DateTimeOriginal = ymd_hms(DateTimeOriginal))
 
+# filter to af11 and add 12 hours to the detection time
 AF_rectable1 <- AF_rectable1 %>%
   mutate(DateTimeOriginal = if_else(
     Station == "af11",
@@ -29,12 +31,13 @@ AF_rectable1 <- AF_rectable1 %>%
     Date = as.Date(DateTimeOriginal),                 
     Time = format(DateTimeOriginal, "%H:%M:%S"))
 
-## Extract deployment or servicing start date and times, then create a datetime column
+## Extract deployment or servicing start date and times
 AF_cam  <- AF_cam %>% 
   dplyr::select(camera, start_date, start_time) %>% 
   dplyr::rename(Station = camera) %>%
   mutate(Station = tolower(Station))
 
+# Create a datetime columns
 AF_cam  <- AF_cam %>% 
   mutate(start_datetime = dmy_hm(paste(start_date, start_time))) %>% 
   dplyr::select(-start_date, -start_time)

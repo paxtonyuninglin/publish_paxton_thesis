@@ -15,12 +15,15 @@ TL_Sept_rectable1 <- read.csv("./data_raw/TL_sept_table.csv")
 #####
 # Correct date and time 
 ## TL8 Oct: Date error: cam says 23/04/25 but reference says 21/09/25
+# reformate date time column into a datetime object
 TL_Oct_rectable1 <- TL_Oct_rectable1 %>%
   mutate(DateTimeOriginal = ymd_hms(DateTimeOriginal))
 
+# reformate date column as date object
 TL_Oct_rectable1 <- TL_Oct_rectable1 %>%
   mutate(Date = as.Date(Date))
 
+# filter to TL8 and add 151 days to detection date
 TL_Oct_rectable1 <- TL_Oct_rectable1 %>%
   mutate(DateTimeOriginal = if_else(
     Station == "tl8",
@@ -32,12 +35,15 @@ TL_Oct_rectable1 <- TL_Oct_rectable1 %>%
     Date))
 
 ## TL8 Sept: Date error: reference says 19/06/2025 but cam says 19/01/2025 (off by 5 months)
+# reformate date time column into a datetime object
 TL_Sept_rectable1 <- TL_Sept_rectable1 %>%
   mutate(DateTimeOriginal = ymd_hms(DateTimeOriginal))
 
+# reformate date column as date object
 TL_Sept_rectable1 <- TL_Sept_rectable1 %>%
   mutate(Date = as.Date(Date))
 
+# filter to TL8 and add 151 days to detection date
 TL_Sept_rectable1 <- TL_Sept_rectable1 %>%
   mutate(DateTimeOriginal = if_else(
     Station == "tl8",
@@ -59,15 +65,18 @@ TL_Oct_cam  <- TL_Oct_cam %>%
   dplyr::rename(Station = camera) %>%
   mutate(Station = tolower(Station))
 
+# create datetime column
 TL_Oct_cam  <- TL_Oct_cam %>% 
   mutate(start_datetime = dmy_hm(paste(start_date, start_time))) %>% 
   dplyr::select(-start_date, -start_time)
 
+# select necessary columns and rename camera names to standard format
 TL_Sept_cam <- TL_Sept_cam %>% 
   dplyr::select(Camera, start_date, start_time) %>% 
   dplyr::rename(Station = Camera) %>%
   mutate(Station = tolower(Station))
 
+# create datetim ecolumn
 TL_Sept_cam  <- TL_Sept_cam %>% 
   mutate(start_datetime = dmy_hm(paste(start_date, start_time))) %>% 
   dplyr::select(-start_date, -start_time)
@@ -104,4 +113,4 @@ TL_daily_table_raw <- TL_daily_table_raw %>%
   filter(Date <= as.Date("2025-09-22"))
 
 # save the table to be used for 24 hour analysis
-write.csv(TL_daily_table_raw, "./data_processed/TL_table_cleaned.csv", row.names = FALSE)
+write.csv(TL_daily_table_raw, "./data_processesd/TL_table_cleaned.csv", row.names = FALSE)
