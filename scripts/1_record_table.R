@@ -1,6 +1,5 @@
 #######################################################################
-###                   Kernel Density Estimation                     ###
-###                     Exploratory analysis                        ###
+###                   Creating detection tables                     ###
 #######################################################################
 knitr::opts_chunk$set(echo = TRUE)
 library(vroom) #faster loading of large datasets
@@ -45,10 +44,36 @@ table(TL_Oct_rectable1$Species)
 TL_Oct_rectable1 <- TL_Oct_rectable1 %>%
   mutate(Station = paste0("tl", sub("tl(\\d+)_oct25", "\\1", Station)))
 
-#Save the new data frame
-write.csv(TL_Oct_rectable1, "./data_raw/TL_oct_table.csv", row.names = FALSE)
+#### load record table for tenquille lake TL 14 july and combine with the rest of TL October
+TL14_Oct_image_wd <- "E:/tenquille_jul_tagged" # load photos from external hard drive 
 
-#Load record table for tenquille lake october
+length(list.files(TL14_Oct_image_wd, pattern = "JPG", recursive = TRUE))
+
+exifTagNames(inDir = TL14_Oct_image_wd)
+
+TL14_Oct_rectable1 <- recordTable(
+  inDir = TL14_Oct_image_wd,
+  IDfrom = "metadata", #Tells camtrapr to look for metadata tag
+  minDeltaTime = 5, #minimum time in minutes between detections to be considered independent.
+  deltaTimeComparedTo = "lastRecord", #independent tags are 5 minutes after last record of species, not after last independent record. 
+  timeZone = "Canada/Pacific",
+  metadataHierarchyDelimitor = "|",
+  metadataSpeciesTag = "Species")
+
+table(TL14_Oct_rectable1$Species)
+
+# rename station column to standard format 
+TL14_Oct_rectable1 <- TL14_Oct_rectable1 %>%
+  mutate(Station = recode(Station, tl14_jul18 = "tl14"))
+
+# bind rows together
+TL_Oct_rectable1 <- TL_Oct_rectable1 %>% 
+  bind_rows(TL_Oct_rectable1, TL14_Oct_rectable1)
+
+#Save the new data frame
+write.csv(TL_Oct_rectable1, "./PUBLISH!!!/data_raw/TL_oct_table.csv", row.names = FALSE)
+
+#Load record table for tenquille lake September
 TL_Sept_image_wd <- "E:/tenquille_sept_tagged" # load photos from external hard drive 
 
 length(list.files(TL_Sept_image_wd, pattern = "JPG", recursive = TRUE))
@@ -71,32 +96,8 @@ TL_Sept_rectable1 <- TL_Sept_rectable1 %>%
   mutate(Station = str_to_lower(Station),      # TL-1 → tl-1
          Station = str_replace(Station, "-", ""))  # tl-1 → tl1\
 
-#Load record table for tenquille lake TL 14 july and combine with the rest of TL september
-TL14_Sept_image_wd <- "E:/tenquille_jul_tagged" # load photos from external hard drive 
-
-length(list.files(TL14_Sept_image_wd, pattern = "JPG", recursive = TRUE))
-
-exifTagNames(inDir = TL14_Sept_image_wd)
-
-TL14_Sept_rectable1 <- recordTable(
-  inDir = TL14_Sept_image_wd,
-  IDfrom = "metadata", #Tells camtrapr to look for metadata tag
-  minDeltaTime = 5, #minimum time in minutes between detections to be considered independent.
-  deltaTimeComparedTo = "lastRecord", #independent tags are 5 minutes after last record of species, not after last independent record. 
-  timeZone = "Canada/Pacific",
-  metadataHierarchyDelimitor = "|",
-  metadataSpeciesTag = "Species")
-
-table(TL14_Sept_rectable1$Species)
-
-# rename station column to standard format 
-TL14_Sept_rectable1 <- TL14_Sept_rectable1 %>%
-  mutate(Station = str_to_lower(Station),      # TL-1 → tl-1
-         Station = str_replace(Station, "-", ""))  # tl-1 → tl1\
-
-
 #Save the new data frame
-write.csv(TL_Sept_rectable1, "./data_raw/TL_sept_table.csv", row.names = FALSE)
+write.csv(TL_Sept_rectable1, "./PUBLISH!!!/data_raw/TL_sept_table.csv", row.names = FALSE)
 
 #Load the record table for the alex fraser data
 AF_image_wd <- "E:/alexfraser_tagged" # load photos from external hard drive 
@@ -122,4 +123,4 @@ AF_rectable1 <- AF_rectable1 %>%
   mutate(Station = sub("_.*", "", Station))
 
 #Save the new data frame
-write.csv(AF_rectable1, "./data_raw/AF_table.csv", row.names = FALSE)
+write.csv(AF_rectable1, "./PUBLISH!!!/data_raw/AF_table.csv", row.names = FALSE)
