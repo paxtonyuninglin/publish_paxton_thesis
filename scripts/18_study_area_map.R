@@ -2,109 +2,92 @@
 ###                       Map of study area                         ###
 #######################################################################
 
-#### Load necessary packages
 library(sf)
 library(ggplot2)
 library(dplyr)
-library(readr)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(ggspatial)
-library(osmextract)
-library(bcdata)
 
-#### Load camera points
-cams  <- read.csv("./data_raw/cam_data.csv")
-cams <- cams %>% 
-  mutate(Longitude = Longitude * -1)
+aeqd <- "+proj=aeqd +lat_0=55 +lon_0=-125"
 
-cams_sf <- cams %>%
-  st_as_sf(coords = c("Longitude", "Latitude"),
-           crs = 4326)   # WGS84
+# Finger-Tatuk Provincial Park: 53°30'34"N, 124°13'29"W
+site_points <- st_as_sf(
+  data.frame(
+    Site = "Finger-Tatuk\nProvincial Park",
+    lon  = -124.22472,
+    lat  = 53.50944
+  ),
+  coords = c("lon", "lat"),
+  crs = 4326
+)
 
-# One point per study site (centroid of all cameras in that site)
-site_points <- lapply(unique(cams_sf$Site), function(s) {
-  
-  x <- cams_sf[cams_sf$Site == s, ]
-  
-  st_sf(
-    Site = s,
-    geometry = st_centroid(st_combine(st_geometry(x))),
-    crs = st_crs(cams_sf)
-  )
-}) %>%
-  do.call(rbind, .)
-
-af_pt <- site_points %>% filter(Site == "Alex Fraser")
-tl_pt <- site_points %>% filter(Site == "Tenquille Lake")
-
-# Zoom window (50 km buffer — adjust as needed)
-af_buf <- st_buffer(af_pt, dist = 50000)
-tl_buf <- st_buffer(tl_pt, dist = 50000)
-
-# Download all admin-1 units (states/provinces) for the world
+# Provinces and states of the world
 provinces <- ne_download(
   scale = 50,
   type = "admin_1_states_provinces",
   returnclass = "sf"
 )
 
-# Filter to Canada, then BC
 bc <- provinces |>
   filter(iso_a2 == "CA", name == "British Columbia")
 
-# plot
+neighbours <- provinces |>
+  filter(
+    (iso_a2 == "CA" & name %in% c("Yukon", "Alberta", "Northwest Territories")) |
+      (iso_a2 == "US" & name %in% c("Alaska", "Washington", "Idaho", "Montana"))
+  )
+
+# Crop to BC's extent (in the map projection) plus a margin
+bc_box <- st_bbox(st_transform(bc, aeqd))
+pad <- 100000   # 100 km
+
 study_map <- ggplot() +
+  geom_sf(data = neighbours, fill = "grey97", color = "grey70", linewidth = 0.3) +
   geom_sf(data = bc, fill = "grey90", color = "grey40", linewidth = 0.4) +
   geom_sf(data = site_points,
           aes(color = Site, shape = Site),
           size = 7) +
-  scale_color_manual(values = c("Alex Fraser" = "darkorange",
-                                "Tenquille Lake" = "purple")) +
-  scale_shape_manual(values = c("Alex Fraser" = 17,
-                                "Tenquille Lake" = 19)) +
+  scale_color_manual(values = c("Finger-Tatuk\nProvincial Park" = "darkorange")) +
+  scale_shape_manual(values = c("Finger-Tatuk\nProvincial Park" = 17)) +
   
-  # Site labels to the left of points 
-  geom_sf_text(data = site_points, 
+  # Two-line label to the left of the point
+  geom_sf_text(data = site_points,
                aes(label = Site),
-               vjust = 0.36,
-               hjust = 1.15, 
-               size = 7 ) +
+               vjust = 0.5,
+               hjust = 1.15,
+               size = 7,
+               lineheight = 0.9) +
   
   annotation_scale(
     location = "bl",
-    width_hint = 0.4,      
-    height = unit(0.6, "cm"),  
-    text_cex = 1.6          
+    width_hint = 0.4,
+    height = unit(0.6, "cm"),
+    text_cex = 1.6
   ) +
-  theme(panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed", 
-                                        size = 0.5), panel.background = element_rect(fill = "white"), 
-        axis.text.x = element_text(size = 17),
-        axis.text.y = element_text(size = 17),
-        panel.border = element_rect(fill = NA),
-        legend.position = "none",
-        plot.margin = unit(c(0,5,0,0), "mm"))
+  coord_sf(
+    crs = aeqd,
+    xlim = c(bc_box["xmin"] - pad, bc_box["xmax"] + pad),
+    ylim = c(bc_box["ymin"] - pad, bc_box["ymax"] + pad),
+    expand = FALSE
+  ) +
+  theme(
+    panel.grid.major = element_line(colour = gray(0.5), linetype = "dashed",
+                                    linewidth = 0.5),
+    panel.background = element_rect(fill = "white"),
+    axis.text.x = element_text(size = 17),
+    axis.text.y = element_text(size = 17),
+    panel.border = element_rect(fill = NA),
+    legend.position = "none",
+    plot.margin = unit(c(0, 5, 0, 0), "mm")
+  )
 
 study_map
 
-# Reproject map using an azimuthal equidistant projection
-study_map_globe <- study_map +
-  coord_sf(
-    crs = "+proj=aeqd +lat_0=55 +lon_0=-125",
-    expand = FALSE
-  )
-
-study_map_globe
-
-# Export map as a high-resolution TIFF
+# Export as a high-resolution TIFF
+dir.create("figures", showWarnings = FALSE)
 tiff("figures/study_map_globe.tiff",
      width = 2500, height = 2500, res = 300,
      compression = "lzw")
-
-study_map_globe
-
+print(study_map)
 dev.off()
-
-
-
-
