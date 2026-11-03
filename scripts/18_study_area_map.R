@@ -54,8 +54,8 @@ study_map <- ggplot() +
   # Two-line label to the left of the point
   geom_sf_text(data = site_points,
                aes(label = Site),
-               vjust = 0.5,
-               hjust = 1.15,
+               hjust = 0.75,        # centred over the point
+               vjust = -0.6,       # text sits above the point
                size = 7,
                lineheight = 0.9) +
   
